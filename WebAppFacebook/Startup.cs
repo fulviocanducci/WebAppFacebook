@@ -48,10 +48,9 @@ namespace WebAppFacebook
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                //options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-                //options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+                //options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                ////options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
             })
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
