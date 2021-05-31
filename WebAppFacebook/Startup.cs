@@ -47,19 +47,20 @@ namespace WebAppFacebook
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;                
+                //options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
                 //https://www.blinkingcaret.com/2017/05/24/facebook-login-asp-net-core/
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.LoginPath = new PathString("/login");
+                    options.LogoutPath = new PathString("/logout");                    
+                })
                 .AddFacebook(FacebookDefaults.AuthenticationScheme, options =>
                 {
                     options.AppId = Configuration["Facebook:AppId"];
                     options.AppSecret = Configuration["Facebook:AppSecret"];
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
-                    options.LoginPath = new PathString("/login");
-                    options.LogoutPath = new PathString("/logout");
                 });
 
             services.AddControllersWithViews();
@@ -75,7 +76,6 @@ namespace WebAppFacebook
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
             app.UseHsts();
             app.UseStaticFiles();
             app.UseRouting();
